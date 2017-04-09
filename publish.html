@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="lib/jquery-ui/jquery-ui.css">
+	<link rel="stylesheet" href="lib/jquery.datetimepicker.css">
+	
+</head>
+<style>
+	*{
+		font-family: "微软雅黑";
+	}
+	.checkbox input[type = "checkbox"],.checkbox input[type = "radio"]{
+		margin-left: 0px;
+		margin-right: 5px;
+	}
+	
+	textarea{
+		resize: none;
+	}
+	body{
+		background: rgba(205,232,209,1);
+	}
+	label{
+		font-weight: normal;
+	}
+	.ice{
+		overflow: hidden;
+		position: relative;
+		border-radius: 4px;
+		background: none;
+	}
+	.ice:before{
+	content: "";  
+    position: absolute;  
+    top: 0px;  
+    left: 0px;  
+    right: 0px;  
+    bottom: 0px;  
+    z-index: -1;
+	filter: blur(40px);
+	margin:-30px;
+	background-color: white;
+	background-attachment: fixed;
+}
+	#leftnav{
+		
+		padding: 20px;
+		
+	}
+	#publishboard .input-group{
+		margin-bottom: 15px;
+	}
+	.input-group textarea{
+		float: left;
+		width: 100%;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		line-height: 34px;
+		border-bottom-left-radius: 0;
+    	border-top-left-radius: 0;
+	}
+	.input-group-addon{
+		background: rgba(0,0,0,.05);
+	}
+	.tab-page {
+		padding: 15px;
+	
+	}
+	
+	.partpage{
+/*		height: 100px;*/
+		border: 2px solid rgba(1,1,1,0);
+		padding: 15px;
+		margin-top: 5px;
+	}
+	.drag-page{
+		border: 2px dashed rgb(21,126,218);
+	}
+
+	.BtnGroup{
+		opacity: 0;
+	}
+	.add-icon,.close-btn,.drag-icon{
+		display: block;
+		margin: 2px;
+		margin-top: 0;
+		border-radius: 4px;
+		width: 15px;
+		height: 15px;
+		line-height: 15px;
+		color: white;
+		text-align: center;
+		cursor: pointer;
+		background-color: dodgerblue;
+	}
+	.close-btn{
+		float: right;
+	}
+	.drag-icon{
+		cursor: move;
+	}
+	.partpage:hover .BtnGroup{
+		opacity: 1;
+	}
+	.partpage:hover .xxx{
+		opacity: .5;
+	}
+
+	.Modify-input{
+		background: none;
+		color: black;
+		border: none;
+		width: 80%;
+	}
+	input::-webkit-input-placeholder { 
+	color: #454545; 
+	} 
+	input:-moz-placeholder { 
+	color: #454545; 
+	} 
+	input:-ms-input-placeholder { 
+	/* IE10+ */ 
+	color: #454545; 
+	} 
+	.file-btn{
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.btn-nav{
+		position: fixed;
+		z-index: 99999;
+		top: 15px;
+		right: 100px;
+	}
+	.xxx{
+		cursor: pointer;
+		opacity: 0;
+	}
+	.grouplist{
+		list-style: none;
+		padding: 0px;
+	}
+	.grouplist .checkbox{
+		text-align: center;
+		padding: 0;
+	}
+</style>
+<body>
+	<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-4 column" style="padding:0 50px;;"> 
+		<div id="leftnav" class="ice">
+			<h3 class="text-left text-warning">
+				hi,<little style="font-size:80%;">请在这里完成问卷创建</little>
+			</h3>
+			<div class="alert alert-dismissable alert-info">
+				 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h4 style="letter-spacing:2px">
+					小提示
+				</h4> <strong style="margin-left:1.5px;letter-spacing:8.2px">TIPS</strong><br>请单击修改标题信息和选项信息<br>右侧十字按可拖拽
+			</div>
+			<form id="publishboard" role="form">
+				<div class="input-group">
+					<span class="input-group-addon" >任务标题</span>
+					<input type="text" id="taskTitle" class="form-control">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">截止时间</span>
+					<input id="taskDeadline" type="text" class="form-control datetimepicker">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" >任务简介</span>
+					<textarea id="taskDescription" name="" id="" cols="15" rows="6" placeholder="请输入一百字以内的描述"></textarea>
+				</div>
+				<div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="addtaskgroup" data-container="body" data-toggle="popover" data-placement="top"  data-content="">添加任务接受者</button>
+                    </span>
+                    <label class="checkbox pull-right" style="margin-top:0px;color:#428bca;font-size:12px;">
+					<input type="checkbox" id="faceAllgroup">面向所有群成员
+					</label>
+                </div>
+			</form>
+			
+			<button type="submit" class="center-block btn btn-default" onclick="submitTask();" style="clear:both;">提交任务</button>
+		</div>
+		</div>
+		<div class="col-md-8 column">
+			<div class="btn-group btn-group-sm btn-nav ">
+				 <button class="btn btn-default" onclick="addRadio();" type="button"><em class="glyphicon glyphicon-align-left"></em> 新建单选</button> 
+				 <button class="btn btn-default" onclick="addMultiselect();" type="button"><em class="glyphicon glyphicon-align-center"></em> 新建多选</button> 
+				 <button class="btn btn-default" onclick="addselfAdministered();" type="button"><em class="glyphicon glyphicon-align-right"></em> 新建自填内容</button> 
+				 <button class="btn btn-default" onclick="addfile();" type="button"><em class="glyphicon glyphicon-align-justify"></em> 新建文件上传</button>
+				 <button class="btn btn-default" onclick="addfilecheck();" type="button"><em class="glyphicon glyphicon-align-justify"></em> 新建文件核对</button>
+			</div>
+			<div class="tabbable" id="tabs-349700">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						 <a href="#panel-187695" data-toggle="tab">Section 1</a>
+					</li>
+					<li>
+						 <a href="#panel-63928" data-toggle="tab">Section 2</a>
+					</li>
+				</ul>
+				<div class="tab-content tab-page">
+					<ul class="tab-pane fade in active" id="panel-187695">
+					</ul>
+					<div class="tab-pane fade" id="panel-63928">
+						<p>
+							Howdy, I'm in Section 2.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="Template01" style="display:none;">
+	<li class="partpage ice ui-state-default" name = "taskQuestion"  value="单">
+			<div class="BtnGroup">
+				<span class="close-btn">&times;</span>
+				<span class="drag-icon pull-right">·</span>
+				<span class="add-icon pull-right" value="单">+</span>
+			</div>
+			<label for="name" >[单选内容]</label><input class="Modify-input part-content" placeholder="请在此填写内容" style="margin-left: 5px;">
+			<div class="close-page">
+			<label class="checkbox">
+				<input type="radio"  ><input class="Modify-input" placeholder="选项1"><span class="xxx">&times;</span>
+			</label>
+			<label class="checkbox">
+				<input type="radio"><input class="Modify-input" placeholder="选项2"><span class="xxx">&times;</span>
+			</label>
+			</div>
+			<label class="checkbox pull-right" style="margin:0px;font-size:12px;color:#428bca;">
+					<input type="checkbox" class="isNeeded" >必填
+			</label>
+	</li>
+</div>
+<div id="Template02" style="display:none;">
+<li  class="partpage ice ui-state-default" name = "taskQuestion"  value="多">
+							<div class="BtnGroup">
+								<span class="close-btn">&times;</span>
+								<span class="drag-icon pull-right">·</span>
+								<span class="add-icon pull-right" value="多">+</span>
+							</div>
+							<label for="name">[多选内容]</label><input class="Modify-input part-content" placeholder="请在此填写内容" style="margin-left: 5px;">
+							<div class="close-page">
+								<label class="checkbox">
+									<input type="checkbox" ><input class="Modify-input" placeholder="选项1"><span class="xxx">&times;</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox"><input class="Modify-input" placeholder="选项2"><span class="xxx">&times;</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" ><input class="Modify-input" placeholder="选项3"><span class="xxx">&times;</span>
+								</label>
+							</div>
+							<label class="checkbox pull-right" style="margin:0px;font-size:12px;color:#428bca;">
+									<input type="checkbox" class="isNeeded" >必填
+							</label>
+						</li>	
+</div>
+<div id="Template03" style="display:none;">
+	<li  class="partpage ice ui-state-default" name = "taskQuestion" value="自">
+							<div class="BtnGroup">
+								<span class="close-btn">&times;</span>
+								<span class="drag-icon pull-right">·</span>
+							</div>
+							<label for="name">[自填内容]</label>
+							<div>
+								<textarea class="form-control part-content" cols="15" rows="5" placeholder="请在此填写内容"></textarea>
+							</div>
+							<label class="checkbox pull-right" style="margin:0px;font-size:12px;color:#428bca;">
+									<input type="checkbox" class="isNeeded" >必填
+							</label>
+						</li>
+</div>
+<div id="Template04" style="display:none;">
+	<li  class="partpage ice ui-state-default" name = "taskCollect">
+							<div class="BtnGroup">
+								<span class="close-btn">&times;</span>
+								<span class="drag-icon pull-right">·</span>
+							</div>
+							<label for="name">[文件上传]</label>
+							<textarea class="form-control part-content" cols="15" rows="5" placeholder="请输入文件上传任务要求(每个任务仅支持上传一个文件)"></textarea>
+						</li>
+</div>
+<div id="Template05" style="display:none;">
+	<li  class="partpage ice ui-state-default" name = "taskCheck">
+							<div class="BtnGroup">
+								<span class="close-btn">&times;</span>
+								<span class="drag-icon pull-right">·</span>
+							</div>
+							<label for="name">[信息核对]</label>
+							<textarea class="form-control part-content" cols="15" rows="5" placeholder="请输入信息核对任务要求"></textarea>
+							<input id="filePPP" type="file" style="display:none;"><label class="btn btn-default file-btn" for="filePPP">上传图片OR附件</label>
+						</li>
+</div>
+<div id="taskgrouplist" style="display:none;">
+	<ul class="grouplist">
+	</ul>
+</div>
+</body>
+<script src="lib/jquery-2.1.1.min.js"></script>
+<script src="lib/jquery-ui/jquery-ui.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/jquery.datetimepicker.full.js"></script>
+<script>
+	$(function () {
+		var iddd = [{
+			"memberID": 123,
+			"trueName":"xiaom"
+		},{
+			"memberID": 123,
+			"trueName":"xiaom"
+		},{
+			"memberID": 123,
+			"trueName":"xiaom"
+		},{
+			"memberID": 123,
+			"trueName":"xiaom"
+		},{
+			"memberID": 123,
+			"trueName":"xiaom"
+		}];
+		displayGroupList(iddd);
+		$("#faceAllgroup").click(function(){
+			if($(this).is(":checked")){
+				$(".grouplist").find(":checkbox").prop("checked", true);
+				$("#addtaskgroup").addClass('disabled');
+				$("#addtaskgroup").prop('disabled', true);
+				$("#addtaskgroup").popover('hide');
+			}else{
+				$(".grouplist").find(":checkbox").prop("checked", false);
+				$("#addtaskgroup").removeClass('disabled');
+				$("#addtaskgroup").prop('disabled', false);
+				$("#addtaskgroup").popover('show');
+			}
+		});
+		var taskgroupHtml = $("#taskgrouplist").html();
+		$("#addtaskgroup").popover({
+			title: "小组 成员 <label class='checkbox' style='margin-left:10px'><input type='checkbox' onclick='checkAll();' id='checkAll'>全选</label>",
+			html : true
+		});
+		$("#addtaskgroup").attr("data-content",taskgroupHtml);
+		$.datetimepicker.setLocale('ch');
+		$('.datetimepicker').datetimepicker();
+		$( "#panel-187695" ).sortable({
+			handle: ".drag-icon",
+//			revert: true,
+			delay: 150,
+			cursor: "move"
+		});
+		OperationGroup();
+	});
+	function checkAll(){
+		if($('#checkAll').is(":checked")){
+			$(".grouplist").find(":checkbox").prop("checked", true);
+		}else{
+			$(".grouplist").find(":checkbox").prop("checked", false);
+		}
+	};
+	function displayGroupList(grouplist){
+		$("#taskgrouplist>ul>li").remove();
+		for(var o in grouplist){
+			$("#taskgrouplist>ul").append("<li><label class='checkbox'><input type='checkbox' name = " + grouplist[o]["memberID"] + ">" + grouplist[o]["trueName"] + "</label></li>");
+		}
+	}
+	function OperationGroup(){
+		$(".close-btn").click(function(){
+			$(this).parents(".partpage").remove();
+		});
+//		$('.Modify-input').wrap("<span></span>");
+//		$('.Modify-input').blur(function(){
+//			if($(this).val() != ""){
+//				if($(this).parent().hasClass("wrap")){
+//					return;
+//				}
+//				$(this).wrap("<span class='wrap'></span>")
+//				$(this).parent().html($(this).val());
+//			}
+//			$(".wrap").click(function(){
+//				var content = $(this).text();
+//				$(this).html("<input value='" + 123 + "'>");
+//			});
+//		});
+		$('.add-icon').unbind("click");
+		$('.add-icon').bind("click",function(){
+			var L = $(this).parents(".partpage").find(".close-page>label").length + 1;
+			if($(this).attr("value") == "多"){
+				$(this).parents(".partpage").find(".close-page").append("<label class='checkbox'><input type='checkbox' ><input class='Modify-input' placeholder='选项" + L + "'><span class='xxx'>&times;</span></label>");
+			}else{
+				$(this).parents(".partpage").find(".close-page").append("<label class='checkbox'><input type='radio' ><input class='Modify-input' placeholder='选项" + L + "'><span class='xxx'>&times;</span></label>");
+			}
+			$(".xxx").click(function(){
+				$(this).parent(".checkbox").remove();
+			});
+		});
+		$(".xxx").click(function(){
+			$(this).parent(".checkbox").remove();
+		});
+	}
+	var num = 1;
+	function addRadio(){
+		$("#Template01").find("input[type = 'radio']").attr("name","radio"+num);
+		var html = $("#Template01").html();
+		$("#panel-187695").append(html);
+		OperationGroup();
+		num++;
+	}
+	function addMultiselect(){
+		var html = $("#Template02").html();
+		$("#panel-187695").append(html);
+		OperationGroup();
+	}
+	function addselfAdministered(){
+		var html = $("#Template03").html();
+		$("#panel-187695").append(html);
+		OperationGroup();
+	}
+	function addfile(){
+		var html = $("#Template04").html();
+		$("#panel-187695").append(html);
+		OperationGroup();
+	}
+	function addfilecheck(){
+		var html = $("#Template05").html();
+		$("#panel-187695").append(html);
+		OperationGroup();
+	}
+	function submitTask(){
+		var taskInfo = {};
+		taskInfo['taskTitle'] = $("#taskTitle").val();
+		taskInfo['taskDescription'] = $("#taskDescription").val();
+		taskInfo['taskMember'] = new Array();
+		taskInfo['taskDeadline'] = $("#taskDeadline").val();
+		taskInfo['taskQuestion'] = new Array(); 
+		taskInfo['taskCheck'] = new Array();
+		taskInfo['taskCollect'] = new Array();
+		taskInfo['SelectAll'] = ($("#faceAllgroup").is(':checked') ? 1 : 0);
+		var Task_li = $('#panel-187695>li');
+		for(var i = 0; i< $(".grouplist").find(":checked").length; i++){
+			var member = {};
+			member["memberID"] = $(".grouplist").find(":checked").eq(i).attr("name");
+			taskInfo['taskMember'].push(member);
+		}
+		for(var i = 0; i < Task_li.length;i++){
+			var Task_index = Task_li.eq(i);
+			var options_length = Task_index.find(".close-page>.checkbox").length;
+			
+			switch(Task_index.attr("name")){
+				case "taskQuestion" : 
+					var Question = {};
+					Question["isNeeded"] = (Task_index.find(".isNeeded").is(':checked') ? 1 : 0);
+					Question["questionTitle"] = Task_index.find(".part-content").val();
+					Question["questionType"] = Task_index.attr("value");
+					Question["option"] = new Array();
+					for(var j = 0 ;j < options_length; j++){
+						var option = {};
+						option["optionContent"] = Task_index.find(".checkbox>.Modify-input").eq(j).val();
+						Question["option"].push(option);
+					}
+					taskInfo['taskQuestion'].push(Question);
+					break;
+				case "taskCheck" :
+					var taskCheck = {};
+					taskCheck["checkDescription"] = Task_index.find(".part-content").val();
+					taskCheck["fileName"]  ;
+					taskCheck["fileAdd"]  ;
+					taskInfo['taskCheck'].push(taskCheck);
+					break;
+				case "taskCollect" :
+					var taskCollect ={};
+					taskCollect["collectDescription"] = Task_index.find(".part-content").val();
+					taskInfo['taskCollect'].push(taskCollect);
+					break;
+			}
+		}
+			console.log(taskInfo);
+	}
+</script>
+</html>

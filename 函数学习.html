@@ -1,0 +1,19 @@
+
+<!--
+函数提升声明
+	在执行代码前会优先读取函数声明。
+	两种声明函数的方式：
+-->
+	
+<script>
+//	1 匿名函数
+	var sayhi = function(){
+		alert("hi");
+	}
+	sayhi();
+//	2
+	sayhi();
+	function sayhi(){
+		alert("hi");
+	}
+</script>

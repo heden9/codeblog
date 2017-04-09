@@ -1,0 +1,377 @@
+.icon {
+    width: 1em; height: 1em;
+	font-size: 16px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+body{
+	background: url(../img/1bb919a0496c90d1630a77ff504f42a4.jpg) no-repeat center center;
+	background-size: cover;
+}
+
+nav{
+	display: none;
+}
+.navbar-inverse{
+	background: rgba(16,16,16,.9);
+}
+#content{
+	background: url(../img/heroshot.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+	height: 644px;
+}
+#content h1{
+	font-size: 38px;
+	letter-spacing: 5px;
+	line-height: 1.2em;
+    font-weight:normal;
+}
+.inner{
+	display: none;
+	color: white;
+	padding-top: 100px;
+}
+.onner{
+	display: none;
+	padding-top: 50px;
+}
+#content .container h2{
+	font-family: 'raleway';
+}
+#content .container h2::after {
+    content: " ";
+    border: solid 1px #0093cb;
+    display: block;
+    width: 55px;
+    margin: 15px auto;
+}
+.iconDown{
+	opacity: 0.4;
+	display: inline-block;
+	color: white;
+	width: 50px;
+	height: 55px;
+	border: 1px solid rgba(255,255,255,.7);
+	border-radius: 5px;
+}
+.iconDown:hover{
+	opacity: 1;
+	color: #0093cb;
+	border-color: #0093cb;
+}
+.iconDown i{
+	display: block;
+}
+.iconDown i:first-child{
+	margin-top: 8px;
+}
+.iconDown i:last-child{
+	margin-top: -5px;
+}
+.verticalnav{
+	position: relative;
+	overflow: hidden;
+	display: none;
+	border-radius: 3px;
+/*	background: rgba(246,246,246,1);*/
+	padding-bottom:50px;
+	font-size: 14px;
+	font-weight: normal;
+	color:#454545;
+}
+label{
+	margin-bottom: 0;
+}
+.verticalnav .list{
+	margin-bottom:  0px;
+	padding:10px;
+	padding-top: 0;
+}
+.Head-portrait{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	background: url(../img/Drum.png);
+	background-size: cover;
+}
+.verticalnav .list>li{
+	margin: 10px 0 5px 0;
+	background: rgba(0,0,0,.085);
+	border-radius: 5px;
+	padding: 2px 0 2px 6px;
+}
+.verticalnav .list .up>li{
+	background: none;
+	padding: 2px 0 2px 6px;
+}
+.verticalnav .form{
+/*	border-top:1px solid rgba(237,237,237,1);*/
+	border-bottom:1px solid rgba(237,237,237,1);
+	height: 320px;
+	overflow: auto;
+	padding:10px;
+	padding-top: 0;
+	
+}
+
+.verticalnav .form label{
+	cursor: pointer;
+	margin-top: 20px;
+	padding: 0;
+	font-size: 12px;
+	color: #7b7b7b;
+}
+.verticalnav .form label:first-child{
+	margin-top: 0;
+}
+
+.verticalnav .form .search{
+	position: relative;
+	width: 100%;
+}
+.verticalnav #search{
+	background: none;
+	border-radius: 10px;
+}
+.verticalnav .search button[type = "submit"]{
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	color: black;
+	z-index: 2;
+}
+.verticalnav .collapse li{
+	cursor: pointer;
+}
+.modal-content{
+	max-width: 400px;
+	border-radius: 3px;
+	margin:  0 auto;
+}
+.register-background{
+	position: fixed;
+ 	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	z-index: 1050;
+  	display: none;
+  	overflow: auto;
+  	overflow-y: scroll;
+	background: rgba(0,0,0,.3);
+  	-webkit-overflow-scrolling: touch;
+  	outline: 0;
+}
+.modal-content{
+	overflow: hidden;
+	background: none;
+}
+.ice:before{
+	content: "";  
+    position: absolute;  
+    top: 0px;  
+    left: 0px;  
+    right: 0px;  
+    bottom: 0px;  
+    z-index: -1;
+	filter: blur(40px);
+	margin:-30px;
+	background-color: white;
+	background-attachment: fixed;
+}
+#registerpage{
+	border-radius: 5px;
+	position: fixed;
+	overflow: hidden;
+	top: 70px;
+	right: 5px;
+	z-index: 1500;
+	width: 400px;
+	padding: 20px 0;
+/*	height: 600px;*/
+}
+
+#registerpage form{
+	border-top:1px solid rgba(237,237,237,1);
+	border-bottom:1px solid rgba(237,237,237,1);
+	padding: 20px 30px; 
+}
+.tag{
+	cursor: pointer;
+	font-size: 52px;
+	padding: 20px;
+	position: fixed;
+	z-index: 5000;
+	top: 33px;
+	right: 297px;
+	color: black;
+}
+.plane{
+	font-size: 52px;
+	position: fixed;
+	z-index: 1000;
+	right: 183px;
+	top: 267px;
+	color: white;
+	display: none;
+}
+.rygbtngroup{
+	padding-top: 5px;
+	padding-left: 10px;
+	height:45px;
+	width:100%;
+}
+.rygbtngroup button{
+	width: 12px;
+	height: 12px;
+	border: none;
+	border-radius: 50%;
+	outline: none;
+}
+.rygbtngroup button:nth-child(1){
+	background: rgb(252,98,93);
+}
+.rygbtngroup button:nth-child(2){
+	background: rgb(254,195,66);
+}
+.rygbtngroup button:nth-child(3){
+	background: rgb(54,206,76);
+}
+.Task-menu{
+	border-radius: 3px; 
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+}
+.Task-menu .menu-header{
+	height: 50px;
+	position: relative;
+	border-bottom: 1px solid rgba(237,237,237,1);
+}
+.Task-menu .menu-header i{
+	opacity: .6;
+	font-size: 36px;
+	margin:0 15px;
+	cursor: pointer;
+}
+.Task-menu .menu-header i:hover{
+	opacity: .9;
+}
+.Task-menu .menu-header svg{
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.Task-menu .menu-left{
+	position: absolute;
+	overflow: auto;
+	left: 10px;
+	z-index: 3;
+	top: 10px;
+	bottom: 10px;
+	width: 200px;
+	display: none;
+	border-radius: 4px;
+	background: rgba(246,245,247,.99);
+	padding: 20px 0;
+/*	border: 1px solid rgb(208,211,212);*/
+}
+.member{
+	color:#7b7b7b;
+	display:block;
+	padding: 0 20px 5px 20px;
+	border-bottom: 1px solid rgba(237,237,237,1);
+}
+#grounpMemberList{
+	margin: 5px 20px 0 20px;
+	padding: 15px;
+}
+#grounpMemberList li{
+	margin-bottom: 8px;
+}
+#grounpMemberList svg{
+	float: right;
+/*	margin-left: -20px;*/
+}
+.Task-menu .panel-group{
+	margin: 20px 20px;
+}
+.Task-menu .panel{
+	margin-bottom: 20px;
+	border: none;
+}
+.Task-menu .panel-heading{
+	padding-left: 40px;
+	position: relative;
+}
+.finishedPeople:hover{
+	cursor: pointer;
+	background-color: #0093cb;
+}
+.loading:after{
+	content: "";
+	font-size: 12px;
+	position: absolute;
+	top: 0;
+	left: 0px;
+	bottom: 0;
+	width: 20px;
+	background: #a5e113;
+	
+}
+.deadline{
+	padding: 5px 20px 5px 5px;
+}
+.deadline:before{
+	content:"截止时间：";
+	font-size: 10px;
+}
+@keyframes fly {
+  0% {
+    	top: 267px;
+	 	right: 183px;
+  }
+
+  100% {
+	  top: 6px;
+	  right: 80px;
+    
+}
+}
+.fly{
+	animation-name: fly;
+	animation-duration: .5s;
+}
+.nprogress{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.9);
+    z-index: 99;
+}
+svg.icon{
+	cursor: pointer;
+	opacity: .7;
+}
+svg.icon:hover{
+	opacity: 1;
+}
+@media (min-width: 768px){
+	.modal-dialog{
+		width: 398px;
+	}
+	.card{
+		width: 398px;
+	}
+}

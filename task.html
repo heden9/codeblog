@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.container{
+		width: 80%;
+		background: #eee;
+		text-align: center;
+		padding: 20px 50px;
+		margin: 0 auto;
+		
+	}
+	h3,h4,h5{
+		margin-top:10px;
+		font-weight: normal;
+	}
+	ul,li{
+		text-decoration: none;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	#task{
+		overflow: hidden;
+		clear: both;
+	}
+	#task li{
+		background: white;
+		padding: 10px 30px;
+		text-align: left;
+		margin-top: 10px;
+	}
+	.X{
+		background: none;
+		outline: none;
+		float: right;
+		cursor: pointer;
+		display: block;
+		font-size: 30px;
+	}
+	.X:hover{
+		opacity: .5;
+	}
+	.Add{
+		float: right;
+		margin-right: 20px;
+	}
+	.drop{
+		float: right;
+	}
+	.drop li{
+		float: left;
+		cursor: pointer;
+		margin-right: 5px;
+	}
+	#L{
+		color: red;
+	}
+	.button{
+		background: white;
+		border: 1px solid rgba(0,0,0,.5);
+		box-shadow: 0 1px 1px rgba(0,0,0,.225);
+		font-size: 12px;
+		border-radius: 5px;
+		padding: 3px;
+		cursor: pointer;
+	}
+</style>
+<body>
+	<div class="container">
+		<h1>任务标题</h1>
+		<h4 style="text-align:left;float:left">[任务简述]  任务描述</h4>
+<!--
+		<ul class="drop">
+			<li>问题1</li>
+			<li>问题2</li>
+			<li>问题3</li>
+			<li>问题4</li>
+			<li>问题5</li>
+		</ul>
+		<span class="Add">+ 添加一项问题</span>
+-->
+		<ul id="task">
+<!--
+			<li class="question1">
+				<h3>[请选择一项] 问题1题目</h3>
+				<input type="radio" value="92"><label for="">选项1</label>
+				<br>
+				<input type="radio" value="93"><label for="">选项2</label>
+				<br>
+				<input type="radio" value="94"><label for="">选项3</label>
+				<br>
+			</li>
+			<li class="question2">
+				<h3>[可选择多项] 问题2题目</h3>
+				<input type="checkbox" value="74"><label for="">选项1</label><br>
+				<input type="checkbox" value="75"><label for="">选项2</label><br>
+				<input type="checkbox" value="76"><label for="">选项3</label><br>
+				<input type="checkbox" value="77"><label for="">选项4</label>
+			</li>
+			<li class="question3">
+				<h3>[请填写] 问题3题目</h3>
+				<textarea name="" id="" rows="3" style="resize: none;width:100%"></textarea>
+			</li>
+			<li class="question4">
+				<h3>[文件收集] 文件收集任务的相关描述</h3>
+				<input type="file">
+			</li>
+			<li class="question5">
+				<h3>[信息核对] 核对任务的相关描述</h3>
+				<button>点击下载附件</button>
+				<h3>[错误信息反馈区]</h3>
+				<textarea name="" id="" rows="3" style="resize: none;width:100%" placeholder="若无错误无需填写"></textarea>
+			</li>
+-->
+		</ul>
+		<button style="font-size:25px;margin-top:30px;" id="publish">提交任务</button>
+	</div>	
+</body>
+<script src="lib/jquery-2.1.1.min.js"></script>
+<script>
+$(function() {
+	addtask();
+	$("#publish").click(function(){
+	//	问题1
+		console.log("问题1");
+		for(var i = 0;i < $(".question1").length;i++)
+		console.log($(".question1").eq(i).find(':radio:checked').val());
+	//	问题2
+		console.log("问题2");
+		for(var i = 0;i < $(".question2").length;i++){
+		var str="";
+		var checkbox = $(".question2").eq(i).find(':checkbox:checked');
+			for(var j = 0;j < checkbox.length;j++)
+				{
+					if(j != 0)
+						str += "-";
+					str += checkbox.eq(j).val();
+				}
+		console.log(str);
+		}
+	//	问题3
+		console.log("问题3");
+		for(var i = 0;i < $(".question3").length;i++){
+		console.log($(".question3").eq(i).find('textarea').val());
+		}
+	});
+	
+	$('.drop>li').click(function(){
+		var index = $(this).index() + 1;
+		addtask(index);
+		console.log($('.X').length);
+	});
+	
+
+	
+	$('#task>li').on('click','.X',function(){
+		$(this).parents('li').remove();	
+	});
+});
+	
+	
+//	数组长度
+	function getJsonLength(jsonData){
+	var jsonLength = 0;
+	for(var item in jsonData){
+	jsonLength++;
+	}
+	return jsonLength;
+}
+  //	    任务添加
+	function addtask(){
+		var num = 1;
+		for(var questionNum = 0;questionNum< getJsonLength(taskInfo['taskQuestion']);questionNum++){
+			
+			switch(taskInfo['taskQuestion'][questionNum]['questionType']){
+				case '单':
+					$("#task").append("<li class='question1'><h3>"+num+".[请选择一项]"+taskInfo['taskQuestion'][questionNum]['questionTitle']+"</h3></li>");
+					for(var j = 0;j < getJsonLength(taskInfo['taskQuestion'][questionNum]['options']); j++){
+						$('.question1').find('h3:contains('+num+'.)').parent().append("<input type='radio' value="+taskInfo['taskQuestion'][questionNum]['options'][j]['optionID']+" name = question1"+questionNum+"><label>"+taskInfo['taskQuestion'][questionNum]['options'][j]['questionOption']+"</label><br>");
+					}
+					break;
+				case '多':
+					$("#task").append("<li class='question2'><h3>"+num+".[可选择多项]"+taskInfo['taskQuestion'][questionNum]['questionTitle']+"</h3></li>");
+					for(var j = 0;j < getJsonLength(taskInfo['taskQuestion'][questionNum]['options']); j++){
+						$('.question2').find('h3:contains('+num+'.)').parent().append("<input type='checkbox' value="+taskInfo['taskQuestion'][questionNum]['options'][j]['optionID']+"><label>"+taskInfo['taskQuestion'][questionNum]['options'][j]['questionOption']+"</label><br>");
+					};break;
+				case '自': 
+					$("#task").append("<li class='question3'><h3>"+num+".[请填写]"+taskInfo['taskQuestion'][questionNum]['questionTitle']+"</h3><textarea rows='3' style='resize: none;width:100%'></textarea></li>"
+					);break;
+		}
+			num++;
+	}
+	for(var questionNum = 0;questionNum< getJsonLength(taskInfo['taskCollect']);questionNum++){
+		$("#task").append("<li class='question4'><h3>"+num+".[文件收集]"+taskInfo['taskCollect'][questionNum]['collectDescription']+"</h3><input type='file'></li>");
+		num++;
+	}
+	for(var questionNum = 0;questionNum< getJsonLength(taskInfo['taskCheck']);questionNum++){
+		$("#task").append("<li class='question5'><h3>"+num+".[信息核对]"+taskInfo['taskCheck'][questionNum]['checkDescription']+"</h3><span class='button'>点击下载附件</span><h3>[错误信息反馈区]</h3><tex	tarea rows='3' style='resize: none;width:100%' placeholder='若无错误无需填写'></textarea></li>");
+		num++;
+	}
+};
+
+	var taskInfo = {
+			taskID : 1,
+			taskTitle : '标题',
+			taskPublishTime : '2017-02-02',
+			taskDeadline : '2017-02-20',
+			taskDescription : '任务描述',
+			publisherInfo : {
+				identity : '主',
+				memberID : 1,
+				memberNickname : '群昵称',
+				nickname : '昵称',
+				truename : '真名',
+				userID : 1
+			},
+			taskMember : {
+				0 : {
+					identity : '主',
+					memberID : '1',						
+					memberNickname : '群昵称',
+					nickname : '昵称',
+					truename : '真名',
+					userID : 1
+				}
+			},
+			taskTeam : {
+				0 : {
+					teamID : '1',
+					teamName : '名字',
+					member : {
+						0 : {
+							identity : '主',
+							memberID : '1',						
+							memberNickname : '群昵称',
+							nickname : '昵称',
+							truename : '真名',
+							userID : 1
+						}
+					}
+				}
+			},
+			taskQuestion : {
+				0 : {
+					questionID : 1,
+					questionTitle : '问题1',
+					questionType : '单',
+					options	: {
+						0 : {
+							optionID : 1,
+							questionOption : 'a'
+						},
+						1 : {
+							optionID : 2,
+							questionOption : 'b'
+						},
+						2 : {
+							optionID : 3,
+							questionOption : 'c'
+						}
+					}		
+				},
+				1 : {
+					questionID : 2,
+					questionTitle : '问题2',
+					questionType : '多',
+					options	: {
+						0 : {
+							optionID : 4,
+							questionOption : '选项4'
+						},
+						1 : {
+							optionID : 5,
+							questionOption : '选项5'
+						},
+						2 : {
+							optionID : 6,
+							questionOption : '选项6'
+						}
+					}
+				},
+				2 : {
+					questionID : 3,
+					questionTitle : '问题3',
+					questionType : '自'
+				}
+			},
+			taskCollect : {
+				0 : {
+					collectID : 1,
+					collectDescription : '描述'
+				}
+			},
+			taskCheck : {
+				0 : {
+					checkDescription : '面糊',
+					checkID : 1,
+					fileID : 2
+				}
+			}
+		};
+</script>
+</html>

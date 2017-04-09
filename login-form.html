@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		.modal-body .input-group{
+			 margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="modal-header" style="padding-left:30px;">
+		<button class="close" id="loginclose" data-dismiss="modal">&times;</button>
+		<h4>登录Codeblog</h4>
+	</div>
+	<div class="modal-body" style="padding-left:30px;padding-right:30px;">
+		<form role="form">
+								<div class="input-group input-group-md">
+            						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+           				 			<input type="text" class="form-control" placeholder="Account">
+        						</div>
+							
+								<div class="input-group input-group-md ">
+            						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+           				 			<input type="password" class="form-control" placeholder="Password">
+        						</div>
+							
+								<div class="input-group input-group-md">
+           				 			<input type="text" class="form-control" placeholder="验证码" maxlength="4">
+           				 			<span class="input-group-addon">picsssss</span>
+        						</div>
+						
+						   
+		</form>
+		<a href="javascript:;" id="register" class="pull-right"  style="font-size:12px;">立即注册</a>  
+	</div>
+	<div class="modal-footer" style="padding-right:30px;padding-left:30px;">
+		<button class="btn" id="loginbtn" style="background:rgba(16,16,16,.9);color:white;">LOGIN</button>
+	</div>
+	
+    <script>
+		var data = {account : "", password : "", verification : ""};
+		data["account"] = $('#loginform').find("input[placeholder ='Account']").val();
+		data["password"] = $('#loginform').find(":password").val();
+		data["verification"] = $('#loginform').find("input[placeholder ='验证码']").val();
+		console.log(data);
+		var flag = false;
+		$('#register').click(function(){
+				$('#loginclose').click();
+				flag = true;
+				$('#login-modal').on('hidden.bs.modal', function () {
+					if(flag == false){
+						return;
+					}
+					flag = false;
+					$('#registerbtn').click();
+				});
+			});
+//		$('#loginbtn').click(function(){
+//			$('#login-modal').find(".modal-content").css({
+//				transform:"rotate(1000deg) scale(0.1)",
+//				opacity:0,
+//			});
+//			setTimeout(function(){
+//				
+//			});},500);
+//		});
+	</script>
+</body>
+</html>

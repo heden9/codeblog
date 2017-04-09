@@ -1,0 +1,47 @@
+@font-face
+{
+	font-family:'Opensans';
+	src: url(../font/OpenSans-Light.ttf);
+}
+@font-face
+{
+	font-family:'raleway';
+	src: url(../font/raleway.ttf);
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+a:hover, a:focus{
+	text-decoration: none;
+}
+ul,li{
+	list-style: none;
+}
+*{
+	font-family: 'Opensans',"微软雅黑";
+}
+.navbar-nav button{
+	background: none;
+	padding:0;
+	border:none;
+	outline: none;
+}
+.delay-01s{
+	animation-delay: .1s;
+}
+.delay-05s{
+	animation-delay: .5s;
+}
+.delay-15s{
+	animation-delay: 1.5s;
+}
+.slow{
+	animation-duration: 1.5s;
+}
+/*
+@media(min-width: 767px){
+	.navbar{
+		padding: 0 50px;
+	}	
+}*/

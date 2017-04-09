@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8 NO-BOM">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>codeblog</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/fullPage/css/jquery.fullPage.css">
+    <link rel="stylesheet" href="lib/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="font/plane/iconfont.css">
+    <link rel="stylesheet" href="lib/nprogress-master/nprogress.css">
+    <link rel="stylesheet" href="css/overwatch.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<div id="Overwatch" class="nprogress">
+		<div class="overwatch">
+			  <div class="across-line"></div>
+			  <div class="taper"></div>
+		</div>
+		<div class="inner-ring3">
+			<div class="inner-ring3-p1-c">
+				<div class="p1-an">
+					<div class="inner-ring3-p1-r"></div>
+				</div>
+			</div>
+			<div class="inner-ring3-p2-c">
+				<div class="p2-an">
+					<div class="inner-ring3-p2-r"></div>
+				</div>
+			</div>
+		</div>
+		<div class="inner-ring"></div> 
+		<!--
+		<div class="inner-ring1">
+		  <div class="inner-ring1-c">
+			<div class="inner-ring1-r"></div>
+		  </div>
+		</div>
+		-->
+		<div class="inner-ring2">
+		  <div class="inner-ring2-c">
+			<div class="inner-ring2-r"></div>
+		  </div>
+		</div>
+		<div class="outer-ring"></div> 
+		<div class="outer-ring2"></div>
+	</div>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="conta iner">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target="#example-navbar-collapse">
+						<span class="sr-only">切换导航</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#page1">CODEBLOG</a>
+				</div>
+				<div class="collapse navbar-collapse" id="example-navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#page3">群组</a></li>
+<!--
+						<?php if(isset($_SESSION['userID'])) { ?>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<button id="user" class="btn-sm" ><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['nickname'] ?></button>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#" id="userInfo">个人信息</a></li>
+									<li><a href="#" id="logout">注销</a></li>
+								</ul>
+							</li>
+-->
+							<li><a href="#"><button id="user" class="btn-sm" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user"></span> 登录</button></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div id="fullpage">
+		<div id="content" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center inner">
+						<h1 class="animated fadeIn delay-01s">轻敲键盘 玩转网页</h1>
+						<h2 class="animated fadeInUp delay-05s">Welcome to codeblog</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 text-center animated fadeInUp delay-15s onner">
+						<a class="iconDown" href="#page2">
+							<i class="iconfont icon-xiangxia"></i>
+							<i class="iconfont icon-xiangxia"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section"><!-- style="background:rgb(50, 50, 90);" -->
+			
+		</div>
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-10"> 
+						<div class="verticalnav text-center ice">
+							<div class="rygbtngroup text-left">
+								<button title="CREATE" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" onclick="window.open('group/create');" data-content="创建群"></button>
+								<button title="PUBLISH" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" onclick="window.open('group/publishTask');" data-content="发布任务"></button>
+								<!-- 顶部的 Popover 中的一些内容 -->
+								<!-- <button title="Popover title" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content=""></button> -->
+							</div>
+							<div class="Head-portrait"></div>
+							<span style="display:block;margin-top:10px;" id="groupName">群组<br></span><small style="display:block;margin-bottom:10px">13212903391</small>
+							<!-- <form class="bs-example bs-example-form" role="form"> -->
+							<div class="form">
+								<div class="input-group input-group-sm search">
+									<input id="search" type="text" class="form-control" placeholder="">
+									<button type="submit">
+										<span class="glyphicon glyphicon-search" style="black"></span>
+									</button>
+								</div>
+								<ul class="list text-left">
+									<li><label data-toggle="collapse" data-target="#collapseOne">我创建的</label></li>
+									<ul  id="collapseOne" class="collapse in up">
+									</ul>
+									<li><label data-toggle="collapse" data-target="#collapseTwo">我管理的</label></li>
+									<ul id="collapseTwo" class="collapse in up">
+									</ul>
+									<li><label data-toggle="collapse" data-target="#collapseThree">我参与的</label></li>
+									<ul id="collapseThree" class="collapse in up">
+									</ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 col-sm-7 col-xs-10 center-block ">
+						<div class="Task-menu ice">
+							<div class="menu-header text-center">
+								<i class="iconfont icon-YLTC_reply"></i>	
+								<i class="iconfont icon-YLTC_nopic"></i>	
+								<i class="iconfont icon-YLTC_application_full"></i>	
+<!--
+								<svg id="svg-area" width="100%" height="100%">
+								  	<path stroke="rgba(33, 150, 243, 0.4)" fill="none"></path>
+								  	<path stroke="rgba(33, 150, 243, 0.7)" fill="none"></path>
+								</svg>
+-->
+							</div>
+							<div class="menu-left">
+								<span class = "member">成员 </span>
+								<ul id="grounpMemberList">
+									<li>
+									    <svg class="icon" aria-hidden="true" title="CREATE" data-container="body" data-toggle="popover" data-trigger="click" data-placement="right" data-content="创建群"  data-content="创建群">
+										  <use xlink:href="#icon-chaojiguanliyuan"></use>
+										</svg>谷田1
+									</li>
+									<li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-guanliyuan"></use>
+										</svg>谷田2
+									</li>
+									<li>
+										<svg class="icon" style="color:#0093cb;" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li>
+									<li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li><li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li><li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li><li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li><li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li><li>
+										<svg class="icon" aria-hidden="true">
+										  <use xlink:href="#icon-YLTC_nopic"></use>
+										</svg>
+										谷田3
+									</li>
+								</ul>
+							</div>
+							<div class="panel-group" id="accordion" style="overflow:auto;max-height: 410px">
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button id="registerbtn" data-toggle="modal" data-target="#register-modal" style="display:none;"></button>
+	<div class="modal fade in" id="login-modal" tabindex="-1">
+        <div class="modal-dialog" style="margin-top :12%;">
+            <div class="modal-content ice">
+                
+            </div>
+        </div>
+    </div>
+    <div id="Registerplace" class="register-background">
+    	<i class="iconfont icon-feiji tag animated bounceInDown"></i>
+    	<i class="iconfont icon--fabu plane animated"></i>
+		<div id="registerpage" class="animated fadeInRightBig ice">
+			<h4 style="margin-bottom:30px;margin-left:30px;">注册Codeblog账号</h4>
+			<form class="bs-example bs-example-form" role="form">
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+					<input type="text" class="form-control" placeholder="用户名">
+				</div>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+					<input type="password" class="form-control" placeholder="密码">
+				</div>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+					<input type="password" class="form-control" placeholder="确认密码">
+				</div>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+					<input type="text" class="form-control" placeholder="手机号">
+				</div>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+					<input type="text" class="form-control" placeholder="真实姓名">
+				</div>
+				<br>
+				<div class="input-group input-group-md">
+           			<input type="text" class="form-control" placeholder="验证码" maxlength="4">
+           			<span class="input-group-addon" style="padding: 0;min-width:100px;" id="verification0"><img src="user/pic?act=0"></span>
+        		</div>
+   			</form>
+   			<button class="btn center-block" id="registerloginbtn" style="background:rgba(16,16,16,.9);color:white;margin-top:30px;margin-bottom:10px;">REGISTER AND LOGIN</button>
+		</div>
+	</div>
+	<script src="font/iconfont.js"></script>
+	<script src="lib/jquery-2.1.1.min.js"></script>
+	<script src="lib/fullPage/jquery.fullPage.js"></script>
+	<script src="lib/jquery-ui/jquery-ui.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="lib/nprogress-master/nprogress.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/group.js"></script>
+	<script>
+	$("#groupName").text("xiaoe")
+		console.log($("#groupName").text());</script>
+</body>
+</html>
